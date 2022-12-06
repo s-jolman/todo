@@ -35,10 +35,8 @@ export function TaskList(props) {
   const [items] = props;
   const listItems = items.map((item) => <Task props={item} />);
   return (
-    <form>
-      <ul>
-        {listItems}
-      </ul>
-    </form>
+    <ul>
+      {listItems}
+    </ul>
   );
 }
