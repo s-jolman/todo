@@ -1,13 +1,16 @@
 import './App.css';
 import { TaskList } from './components/tasks';
+import { TodosContext, useTodosListFromInput } from './hooks/useTodos.js';
 
 function App() {
-  const items = [
-    { id: 1, state: 1, title: 'Make a to-do list item' },
-    { id: 2, state: 0, title: 'Make a to-do list of list items' },
-  ];
+  const contextData = useTodosListFromInput([
+    { id: 2, done: true, title: 'Make a to-do list item' },
+    { id: 3, done: false, title: 'Make a to-do list of list items' },
+  ]);
   return (
-    <TaskList items={items} />
+    <TodosContext.Provider value={contextData}>
+      <TaskList />
+    </TodosContext.Provider>
   );
 }
 

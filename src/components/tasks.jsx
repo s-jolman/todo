@@ -1,29 +1,19 @@
-import {
-  useState,
-  useMemo,
-  useCallback,
-  useEffect,
-} from 'react';
+/* eslint-disable react/prop-types */
 
-export function Task(props) {
-  const [id, state, title] = props;
-  const [done, setDone] = useState(state);
-  const name = `task ${id}`;
+import { useTodo, useTodosIds, useTodoToggle } from '../hooks/useTodos.js';
 
-  const taskDone = useCallback(
-    () => setDone((c) => (c === 0 ? 1 : 0)),
-    [setDone],
-  );
-
+export function Task({ id }) {
+  const { name, title, done } = useTodo(id);
+  const toggleDone = useTodoToggle(id);
   return (
-    <li key={id}>
+    <li>
       <label htmlFor={name}>
         <input
           type="checkbox"
           id={name}
           name={name}
           checked={done}
-          onChange={taskDone}
+          onChange={toggleDone}
         />
         {title}
       </label>
@@ -31,9 +21,13 @@ export function Task(props) {
   );
 }
 
-export function TaskList(props) {
-  const [items] = props;
-  const listItems = items.map((item) => <Task props={item} />);
+export function TaskList() {
+  const ids = useTodosIds();
+  // object entries turns object to array to be used in array functions
+  // must create array in map that shows key value pair
+  const listItems = ids.map((id) => (
+    <Task key={id} id={id} />
+  ));
   return (
     <ul>
       {listItems}
