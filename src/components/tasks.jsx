@@ -1,22 +1,33 @@
 /* eslint-disable react/prop-types */
 
-import { useTodo, useTodosIds, useTodoToggle } from '../hooks/useTodos.js';
+import {
+  useTodo,
+  useTodosIds,
+  useTodoToggle,
+  useTodoRename,
+} from '../hooks/useTodos.js';
 
 export function Task({ id }) {
   const { name, title, done } = useTodo(id);
   const toggleDone = useTodoToggle(id);
+  const changeTitle = useTodoRename(id);
+
   return (
     <li>
-      <label htmlFor={name}>
-        <input
-          type="checkbox"
-          id={name}
-          name={name}
-          checked={done}
-          onChange={toggleDone}
-        />
-        {title}
-      </label>
+      <input
+        type="checkbox"
+        id={`task-done-${id}`}
+        name={`task-done-${id}`}
+        checked={done}
+        onChange={toggleDone}
+      />
+      <input
+        type="text"
+        id={`task-title-${id}`}
+        name={`task-title-${id}`}
+        value={title}
+        onChange={changeTitle}
+      />
     </li>
   );
 }

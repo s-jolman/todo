@@ -2,7 +2,6 @@ import {
   createContext, useCallback, useContext, useState,
 } from 'react';
 
-/* eslint-disable no-restricted-syntax */
 const listToObject = (list) => {
   const object = {};
   for (const item of list) {
@@ -28,12 +27,29 @@ export const useTodosListFromInput = (input) => {
           },
         }),
       );
+      console.log('toggleDone-' + id);
+    },
+    [setItemsMap],
+  );
+  const changeTitle = useCallback(
+    (id) => {
+      setItemsMap(
+        (prevItems) => ({
+          ...prevItems,
+          [id]: {
+            ...prevItems[id],
+            title: prevItems[id].title,
+          },
+        }),
+      );
+      console.log('changeTitle-' + id);
     },
     [setItemsMap],
   );
   return {
     items: itemsMap,
     toggleDone,
+    changeTitle,
   };
 };
 
@@ -47,9 +63,18 @@ export const useTodo = (id) => (
 
 export const useTodoToggle = (id) => {
   const { toggleDone } = useContext(TodosContext);
-  const onChange = useCallback(
+  const todoToggle = useCallback(
     () => toggleDone(id),
-    [toggleDone, id],
+    [toggleDone, id.done],
   );
-  return onChange;
+  return todoToggle;
+};
+
+export const useTodoRename = (id) => {
+  const { changeTitle } = useContext(TodosContext);
+  const todoRename = useCallback(
+    () => changeTitle(id),
+    [changeTitle, id.title],
+  );
+  return todoRename;
 };

@@ -7,9 +7,13 @@ function App() {
     { id: 2, done: true, title: 'Make a to-do list item' },
     { id: 3, done: false, title: 'Make a to-do list of list items' },
   ]);
+
+  const logList = () => console.log(JSON.stringify(contextData, null, 2));
+
   return (
     <TodosContext.Provider value={contextData}>
       <TaskList />
+      <button onClick={logList}>Log current list</button>
     </TodosContext.Provider>
   );
 }
