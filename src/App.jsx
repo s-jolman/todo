@@ -13,7 +13,7 @@ function App() {
   return (
     <TodosContext.Provider value={contextData}>
       <TaskList />
-      <button onClick={logList}>Log current list</button>
+      <button type="button" onClick={logList}>Log current list</button>
     </TodosContext.Provider>
   );
 }

@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import {
   useTodo,
   useTodosIds,
@@ -8,25 +6,25 @@ import {
 } from '../hooks/useTodos.js';
 
 export function Task({ id }) {
-  const { name, title, done } = useTodo(id);
+  const { title, done } = useTodo(id);
   const toggleDone = useTodoToggle(id);
-  const changeTitle = useTodoRename(id);
+  const renameTitle = useTodoRename(id);
 
   return (
     <li>
       <input
         type="checkbox"
-        id={`task-done-${id}`}
-        name={`task-done-${id}`}
+        id={`${id}-done`}
+        name="done"
         checked={done}
         onChange={toggleDone}
       />
       <input
         type="text"
-        id={`task-title-${id}`}
-        name={`task-title-${id}`}
+        id={`${id}-title`}
+        name="title"
         value={title}
-        onChange={changeTitle}
+        onChange={renameTitle}
       />
     </li>
   );

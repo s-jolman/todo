@@ -27,29 +27,29 @@ export const useTodosListFromInput = (input) => {
           },
         }),
       );
-      console.log('toggleDone-' + id);
     },
     [setItemsMap],
   );
-  const changeTitle = useCallback(
+
+  const renameTitle = useCallback(
     (id) => {
+      const value = document.getElementById(id + "-title").value;
       setItemsMap(
         (prevItems) => ({
           ...prevItems,
           [id]: {
             ...prevItems[id],
-            title: prevItems[id].title,
+            title: value,
           },
         }),
       );
-      console.log('changeTitle-' + id);
     },
     [setItemsMap],
   );
   return {
     items: itemsMap,
     toggleDone,
-    changeTitle,
+    renameTitle,
   };
 };
 
@@ -65,16 +65,16 @@ export const useTodoToggle = (id) => {
   const { toggleDone } = useContext(TodosContext);
   const todoToggle = useCallback(
     () => toggleDone(id),
-    [toggleDone, id.done],
+    [toggleDone, id],
   );
   return todoToggle;
 };
 
 export const useTodoRename = (id) => {
-  const { changeTitle } = useContext(TodosContext);
+  const { renameTitle } = useContext(TodosContext);
   const todoRename = useCallback(
-    () => changeTitle(id),
-    [changeTitle, id.title],
+    () => renameTitle(id),
+    [renameTitle, id],
   );
   return todoRename;
 };
