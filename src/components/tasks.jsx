@@ -7,8 +7,13 @@ import {
 
 export function NewTask() {
   const addTodo = () => {
-
+    let max = Math.max(...arr);
   }
+
+  // new component for adding a new todo
+  // it should have an input and button
+  // button should be disabled if input is empty (state empty)
+  // hook/context should only have an addTodo function that receives a string (title)
 
   return (
     <button type="button" onClick={addTodo}>New task</button>

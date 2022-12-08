@@ -1,5 +1,5 @@
 import {
-  createContext, useCallback, useContext, useState,
+  createContext, useCallback, useContext, useState, useMemo,
 } from 'react';
 
 const listToObject = (list) => {
@@ -32,8 +32,7 @@ export const useTodosListFromInput = (input) => {
   );
 
   const renameTitle = useCallback(
-    (id) => {
-      const value = document.getElementById(id + "-title").value;
+    (id) => ({ target: { value } } /* change event */) => {
       setItemsMap(
         (prevItems) => ({
           ...prevItems,
@@ -72,7 +71,7 @@ export const useTodoToggle = (id) => {
 
 export const useTodoRename = (id) => {
   const { renameTitle } = useContext(TodosContext);
-  const todoRename = useCallback(
+  const todoRename = useMemo(
     () => renameTitle(id),
     [renameTitle, id],
   );

@@ -2,6 +2,9 @@ import './App.css';
 import { TaskList } from './components/tasks';
 import { TodosContext, useTodosListFromInput } from './hooks/useTodos.js';
 
+
+// TODO: install nanoid
+
 function App() {
   const contextData = useTodosListFromInput([
     { id: 2, done: true, title: 'Make a to-do list item' },
