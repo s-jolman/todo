@@ -8,12 +8,14 @@ function App() {
     { id: 3, done: false, title: 'Make a to-do list of list items' },
   ]);
 
-  const logList = () => console.log(JSON.stringify(contextData, null, 2));
-
   return (
     <TodosContext.Provider value={contextData}>
       <TaskList />
-      <button type="button" onClick={logList}>Log current list</button>
+      <button type="button" onClick={
+        () => console.log(JSON.stringify(contextData, null, 2))
+      }>
+        Log current list
+      </button>
     </TodosContext.Provider>
   );
 }

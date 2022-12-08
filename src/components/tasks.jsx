@@ -5,6 +5,16 @@ import {
   useTodoRename,
 } from '../hooks/useTodos.js';
 
+export function NewTask() {
+  const addTodo = () => {
+
+  }
+
+  return (
+    <button type="button" onClick={addTodo}>New task</button>
+  );
+}
+
 export function Task({ id }) {
   const { title, done } = useTodo(id);
   const toggleDone = useTodoToggle(id);
