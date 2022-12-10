@@ -1,5 +1,5 @@
 import './App.css';
-import { TaskList } from './components/tasks';
+import { NewTask, TaskList } from './components/tasks';
 import { TodosContext, useTodosListFromInput } from './hooks/useTodos.js';
 
 
@@ -13,6 +13,7 @@ function App() {
 
   return (
     <TodosContext.Provider value={contextData}>
+      <NewTask />
       <TaskList />
       <button type="button" onClick={
         () => console.log(JSON.stringify(contextData, null, 2))

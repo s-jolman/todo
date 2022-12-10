@@ -30,9 +30,8 @@ export const useTodosListFromInput = (input) => {
     },
     [setItemsMap],
   );
-
   const renameTitle = useCallback(
-    (id) => ({ target: { value } } /* change event */) => {
+    (id) => ({ target: { value } }) => {
       setItemsMap(
         (prevItems) => ({
           ...prevItems,
@@ -45,10 +44,26 @@ export const useTodosListFromInput = (input) => {
     },
     [setItemsMap],
   );
+  const addTodo = useCallback(
+    (newTitle) => {
+      setItemsMap(
+        (prevItems) => ({
+          ...prevItems,
+          [Number(Object.keys(prevItems).reduce((a, b) => prevItems[a] > prevItems[b] ? a : b)) + 1]: {
+            id: Number(Object.keys(prevItems).reduce((a, b) => prevItems[a] > prevItems[b] ? a : b)) + 1,
+            done: false,
+            title: newTitle,
+          },
+        }),
+      );
+    },
+    [setItemsMap],
+  );
   return {
     items: itemsMap,
     toggleDone,
     renameTitle,
+    addTodo,
   };
 };
 
@@ -76,4 +91,13 @@ export const useTodoRename = (id) => {
     [renameTitle, id],
   );
   return todoRename;
+};
+
+export const addNewTodo = (title) => {
+  const { addTodo } = useContext(TodosContext);
+  const newTodo = useCallback(
+    () => addTodo(title),
+    [addTodo, title],
+  );
+  return newTodo;
 };

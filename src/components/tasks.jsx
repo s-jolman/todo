@@ -1,22 +1,51 @@
 import {
+  useCallback, useState,
+} from 'react';
+import {
   useTodo,
   useTodosIds,
   useTodoToggle,
   useTodoRename,
+  addNewTodo,
 } from '../hooks/useTodos.js';
 
 export function NewTask() {
-  const addTodo = () => {
-    let max = Math.max(...arr);
-  }
+  const [valueData, setValueData] = useState({
+    title: '',
+    disabled: true,
+  });
 
-  // new component for adding a new todo
-  // it should have an input and button
-  // button should be disabled if input is empty (state empty)
-  // hook/context should only have an addTodo function that receives a string (title)
+  const handleOnInputChange = useCallback(
+    ({ target: { value } }) => {
+      setValueData({
+        ...valueData,
+        title: value,
+        disabled: value ? false : true,
+      });
+
+    },
+    [valueData, setValueData],
+  );
 
   return (
-    <button type="button" onClick={addTodo}>New task</button>
+    <div>
+      <input
+        type="text"
+        id="newTitle"
+        name="newTitle"
+        value={valueData.title}
+        placeholder="New task"
+        onChange={handleOnInputChange}
+      />
+      <button
+        type="button"
+        id="newBtn"
+        onClick={addNewTodo(valueData.title)}
+        disabled={valueData.disabled}
+      >
+        +
+      </button>
+    </div>
   );
 }
 
@@ -26,7 +55,7 @@ export function Task({ id }) {
   const renameTitle = useTodoRename(id);
 
   return (
-    <li>
+    <li className='taskListItem'>
       <input
         type="checkbox"
         id={`${id}-done`}
@@ -37,6 +66,7 @@ export function Task({ id }) {
       <input
         type="text"
         id={`${id}-title`}
+        className='taskListItem__title'
         name="title"
         value={title}
         onChange={renameTitle}
@@ -53,7 +83,7 @@ export function TaskList() {
     <Task key={id} id={id} />
   ));
   return (
-    <ul>
+    <ul className='taskList'>
       {listItems}
     </ul>
   );
