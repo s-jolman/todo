@@ -13,6 +13,11 @@ const listToObject = (list) => {
 export const TodosContext = createContext();
 
 export const useTodosListFromInput = (input) => {
+  // TODO: This                         --\/--
+  // const [itemsMap, setItemsMap] = useLocalStorage(
+  //   'todos',
+  //   listToObject(input),
+  // );
   const [itemsMap, setItemsMap] = useState(
     listToObject(input),
   );
@@ -47,14 +52,17 @@ export const useTodosListFromInput = (input) => {
   const addTodo = useCallback(
     (newTitle) => {
       setItemsMap(
-        (prevItems) => ({
-          ...prevItems,
-          [Number(Object.keys(prevItems).reduce((a, b) => prevItems[a] > prevItems[b] ? a : b)) + 1]: {
-            id: Number(Object.keys(prevItems).reduce((a, b) => prevItems[a] > prevItems[b] ? a : b)) + 1,
-            done: false,
-            title: newTitle,
-          },
-        }),
+        (prevItems) => {
+          const maxId = Number(Object.keys(prevItems).reduce((a, b) => prevItems[a] > prevItems[b] ? a : b)) + 1;
+          return ({
+            ...prevItems,
+            [maxId]: {
+              id: maxId,
+              done: false,
+              title: newTitle,
+            },
+          })
+        },
       );
     },
     [setItemsMap],

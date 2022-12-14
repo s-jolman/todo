@@ -8,6 +8,9 @@ import {
   useTodoRename,
   addNewTodo,
 } from '../hooks/useTodos.js';
+import {
+  Button
+} from './button'
 
 export function NewTask() {
   const [valueData, setValueData] = useState({
@@ -37,14 +40,14 @@ export function NewTask() {
         placeholder="New task"
         onChange={handleOnInputChange}
       />
-      <button
+      <Button
         type="button"
         id="newBtn"
         onClick={addNewTodo(valueData.title)}
         disabled={valueData.disabled}
       >
         +
-      </button>
+      </Button>
     </div>
   );
 }
