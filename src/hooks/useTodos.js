@@ -101,11 +101,7 @@ export const useTodoRename = (id) => {
   return todoRename;
 };
 
-export const addNewTodo = (title) => {
+export const useAddTodo = () => {
   const { addTodo } = useContext(TodosContext);
-  const newTodo = useCallback(
-    () => addTodo(title),
-    [addTodo, title],
-  );
-  return newTodo;
+  return addTodo;
 };

@@ -6,28 +6,34 @@ import {
   useTodosIds,
   useTodoToggle,
   useTodoRename,
-  addNewTodo,
+  useAddTodo,
 } from '../hooks/useTodos.js';
 import {
   Button
 } from './button'
 
 export function NewTask() {
-  const [valueData, setValueData] = useState({
-    title: '',
-    disabled: true,
-  });
+  const [valueData, setValueData] = useState('');
 
   const handleOnInputChange = useCallback(
     ({ target: { value } }) => {
-      setValueData({
-        ...valueData,
-        title: value,
-        disabled: value ? false : true,
-      });
-
+      setValueData(value);
     },
     [valueData, setValueData],
+  );
+
+  const addNewTodo = useAddTodo();
+  const handleOnInputSubmit = useCallback(
+    () => {
+      addNewTodo(valueData);
+      setValueData('');
+    },
+    [valueData, setValueData],
+  );
+
+  const isDisabled = useMemo(
+    () => valueData.length === 0,
+    [valueData.length]
   );
 
   return (
@@ -36,15 +42,15 @@ export function NewTask() {
         type="text"
         id="newTitle"
         name="newTitle"
-        value={valueData.title}
+        value={valueData}
         placeholder="New task"
         onChange={handleOnInputChange}
       />
       <Button
         type="button"
         id="newBtn"
-        onClick={addNewTodo(valueData.title)}
-        disabled={valueData.disabled}
+        onClick={handleOnInputSubmit}
+        disabled={isDisabled}
       >
         +
       </Button>
