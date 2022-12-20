@@ -1,6 +1,7 @@
 import {
   createContext, useCallback, useContext, useState, useMemo,
 } from 'react';
+import { useLocalStorage } from './useLocalStorage.js';
 
 const listToObject = (list) => {
   const object = {};
@@ -13,12 +14,8 @@ const listToObject = (list) => {
 export const TodosContext = createContext();
 
 export const useTodosListFromInput = (input) => {
-  // TODO: This                         --\/--
-  // const [itemsMap, setItemsMap] = useLocalStorage(
-  //   'todos',
-  //   listToObject(input),
-  // );
-  const [itemsMap, setItemsMap] = useState(
+  const [itemsMap, setItemsMap] = useLocalStorage(
+    'todos',
     listToObject(input),
   );
   const toggleDone = useCallback(

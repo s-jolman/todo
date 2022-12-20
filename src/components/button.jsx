@@ -37,5 +37,3 @@ export const Button = styled.button(
     })
     : undefined
 );
-
-const LinkButton = Button.withComponent('a')

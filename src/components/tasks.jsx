@@ -1,5 +1,5 @@
 import {
-  useCallback, useState,
+  useCallback, useState, useMemo
 } from 'react';
 import {
   useTodo,
@@ -8,9 +8,9 @@ import {
   useTodoRename,
   useAddTodo,
 } from '../hooks/useTodos.js';
-import {
-  Button
-} from './button'
+import { Button } from './button';
+import { Input, CheckBox } from './input';
+import { TaskList, TaskListItem } from './taskList';
 
 export function NewTask() {
   const [valueData, setValueData] = useState('');
@@ -37,8 +37,8 @@ export function NewTask() {
   );
 
   return (
-    <div>
-      <input
+    <form>
+      <Input
         type="text"
         id="newTitle"
         name="newTitle"
@@ -47,14 +47,14 @@ export function NewTask() {
         onChange={handleOnInputChange}
       />
       <Button
-        type="button"
+        type="submit"
         id="newBtn"
         onClick={handleOnInputSubmit}
         disabled={isDisabled}
       >
         +
       </Button>
-    </div>
+    </form>
   );
 }
 
@@ -64,27 +64,26 @@ export function Task({ id }) {
   const renameTitle = useTodoRename(id);
 
   return (
-    <li className='taskListItem'>
-      <input
+    <TaskListItem>
+      <CheckBox
         type="checkbox"
         id={`${id}-done`}
         name="done"
         checked={done}
         onChange={toggleDone}
       />
-      <input
+      <Input
         type="text"
         id={`${id}-title`}
-        className='taskListItem__title'
         name="title"
         value={title}
         onChange={renameTitle}
       />
-    </li>
+    </TaskListItem>
   );
 }
 
-export function TaskList() {
+export function MainTaskList() {
   const ids = useTodosIds();
   // object entries turns object to array to be used in array functions
   // must create array in map that shows key value pair
@@ -92,8 +91,8 @@ export function TaskList() {
     <Task key={id} id={id} />
   ));
   return (
-    <ul className='taskList'>
+    <TaskList>
       {listItems}
-    </ul>
+    </TaskList>
   );
 }

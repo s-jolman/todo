@@ -37,77 +37,6 @@ h1 {
   line-height: 1.1;
 }
 
-input {
-  border-radius: 0;
-  border: 1px solid transparent;
-  padding: 0.6em;
-  margin-right: 0.6em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background: none;
-  transition: border-color 0.25s;
-}
-input:hover {
-  border-bottom-color: #646cff;
-}
-input:focus,
-input:focus-visible {
-  border-bottom-color: #fff;
-  outline: none;
-}
-input[type="checkbox"] {
-  /* Add if not using autoprefixer */
-  -webkit-appearance: none;
-  /* Remove most all native input styles */
-  appearance: none;
-  /* For iOS < 15 */
-  background-color: #242424;
-  /* Not removed via appearance */
-  margin: 0;
-
-  font: inherit;
-  color: currentColor;
-  width: 1.15em;
-  height: 1.15em;
-  border: 0.15em solid currentColor;
-  border-radius: 0.15em;
-  transform: translateY(-0.075em);
-
-  display: grid;
-  place-content: center;
-}
-
-input[type="checkbox"]::before {
-  content: "";
-  width: 0.65em;
-  height: 0.65em;
-  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-  opacity: 0;
-  transition: 120ms opacity ease-in-out;
-  box-shadow: inset 1em 1em #646cff;
-  /* Windows High Contrast Mode */
-  background-color: CanvasText;
-}
-
-input[type="checkbox"]:checked::before {
-  opacity: 1;
-}
-
-.taskList {
-  padding: 0;
-}
-.taskListItem {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.6em;
-}
-.taskListItem__title {
-  flex: 1 0 100%;
-  margin-left: 0.6em;
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -115,8 +44,5 @@ input[type="checkbox"]:checked::before {
   }
   a:hover {
     color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }
